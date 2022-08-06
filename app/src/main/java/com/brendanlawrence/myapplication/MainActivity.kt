@@ -18,8 +18,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportActionBar?.hide()
-
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater) // Inflate converts the XML file into the corresponding view object, allowing use in Kotlin code.
         val view = binding.root // Using val instead of var as we will not be changing this 'view' object once created.
@@ -83,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun startNewGame() {
         totalScore = 0
-        round = 0
+        round = 1
         sliderValue = 50
         targetValue = newTargetValue()
 
