@@ -1,10 +1,12 @@
 package com.brendanlawrence.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.brendanlawrence.myapplication.databinding.ActivityMainBinding
 import kotlin.math.abs
 import kotlin.random.Random
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater) // Inflate converts the XML file into the corresponding view object, allowing use in Kotlin code.
         val view = binding.root // Using val instead of var as we will not be changing this 'view' object once created.
@@ -36,6 +40,10 @@ class MainActivity : AppCompatActivity() {
             startNewGame()
         }
 
+        binding.infoButton?.setOnClickListener {
+            navigateToAboutPage()
+        }
+
         binding.targetSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 sliderValue = progress
@@ -45,6 +53,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
+    }
+
+    private fun navigateToAboutPage() {
+        val intent = Intent(this, AboutActivity::class.java)
+        startActivity(intent)
     }
 
     private fun differenceAmount() = abs(sliderValue - targetValue)
